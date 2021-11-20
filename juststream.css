@@ -1,3 +1,32 @@
+
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: grey;
+}
+h1
+{
+    margin-left: 100px;
+    color: white;
+}
+nav
+{
+    margin-right: 100px;
+    color: white;
+    font-size: 1.5em
+}
+nav ul
+{
+    list-style-type: none;
+    display: flex;
+}
+
+nav li
+{
+    margin-right: 50px;
+}
 h3
 {
     color : blue;
@@ -15,6 +44,7 @@ h3
     background-color: #3cca5f;
     padding: 1em;
     border: 0.1rem solid;
+    text-align: center;
 }
     
   
@@ -44,6 +74,9 @@ a:nth-of-type(2n)
 {
     top:0; bottom:0; right: 0;
     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+}
+a img{
+    vertical-align: middle;
 }
 
 
