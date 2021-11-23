@@ -35,12 +35,13 @@ h3
 
 .item
 {
-    background-color: #3cca5f;
-    padding: 1em;
-    border: 0.1rem solid;
+    background-color: #adb9b033;
     text-align: center;
+    padding: 2em;
 }
-    
+.item:hover{
+    transform: scale(1.2);
+}
 .categories{
     position:relative;
     overflow: hidden;
