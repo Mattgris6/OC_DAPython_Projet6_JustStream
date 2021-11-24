@@ -1,10 +1,17 @@
 // Class that defines the elements of a carousel and his functions
 class Carousel {
-    constructor(element) {
+    constructor(element, url_carousel, id) {
         this.element = element
+        this.url = url_carousel
+        console.log(element)
+        console.log(id)
+        console.log(url_carousel)
+        this.index = id
         this.nbItemsVisible = 4
         this.nbItemsScroll = 4
         this.currentItem = 0
+        this.nbMovies = 7
+        this.numMovie = 0
         let children = [].slice.call(element.children)
         this.container = createDivWithClass('carousel')
         this.element.appendChild(this.container)
@@ -18,6 +25,7 @@ class Carousel {
         this.container.style.width = (ratio * 100) + "%"
         this.items.forEach(item => item.style.width = ((100 / this.nbItemsVisible) / ratio) + "%")
         this.createNavigationButton()
+        this.getAllGenre(this.url)
     }
     createNavigationButton() {
         let next = createDivWithClass("next")
@@ -43,15 +51,23 @@ class Carousel {
         this.container.style.transform = 'translate3d(' + translateX + '%, 0, 0)'
         this.currentItem = numItem
     }
-}
+    async getAllGenre(url) {
+        fetch(url).then((response) => response.json().then((data) => {
+            for (let movie of data.results) {
+                if (this.numMovie < this.nbMovies) {
+                    this.numMovie = this.numMovie + 1
+                    display(this.index, this.numMovie, movie)
+                } else {
+                    break
+                }
+            }
+            if (data.next != null && this.numMovie < this.nbMovies) {
+                this.getAllGenre(data.next)
+            }
+        }))
+    }
 
-// We create the 4 carousel
-document.addEventListener("DOMContentLoaded", function() {
-    new Carousel(document.querySelector("#best_movies"))
-    new Carousel(document.querySelector("#cat1"))
-    new Carousel(document.querySelector("#cat2"))
-    new Carousel(document.querySelector("#cat3"))
-})
+}
 
 // Get the url for the first carousel
 url_best_movies = "http://localhost:8000/api/v1/titles/?year=&min_year=&max_year=&imdb_score=&imdb_score_min=&imdb_score_max=&title=&title_contains=&genre=&genre_contains=&sort_by=-imdb_score&director=&director_contains=&writer=&writer_contains=&actor=&actor_contains=&country=&country_contains=&lang=&lang_contains=&company=&company_contains=&rating=&rating_contains="
@@ -61,54 +77,20 @@ for (cat of categories) {
     url = `http://localhost:8000/api/v1/titles/?year=&min_year=&max_year=&imdb_score=&imdb_score_min=&imdb_score_max=&title=&title_contains=&genre=${cat}&genre_contains=&sort_by=-imdb_score&director=&director_contains=&writer=&writer_contains=&actor=&actor_contains=&country=&country_contains=&lang=&lang_contains=&company=&company_contains=&rating=&rating_contains=`
     urls.push(url)
 }
-let nbMovie = 0
-index = '0'
-nbMovie = 0
-test(urls[0], index)
-for (i = 0; i < urls.length; i++) {
-    nbMovie = 0
-        //test(urls[i], String(i + 1))
-}
-// Function to get first 7 movies
-async function getAllGenre(url_filter, index) {
-    fetch(url_filter).then((response) => response.json().then((data) => {
-        for (let movie of data.results) {
-            if (nbMovie < 7) {
-                nbMovie++
-                display(index, nbMovie, movie)
-            } else {
-                break
-            }
-        }
-        if (data.next != null && nbMovie < 7) {
-            getAllGenre(data.next, index)
-        }
-    }))
-}
 
-// Other method
-async function getMovies(url_filter) {
-    const rep = await fetch(url_filter, { method: 'GET' });
-    const response = await rep.json();
-    return response;
-}
-// Other method
-async function test(url_filter, index) {
-    getMovies(url_filter, index).then(data => {
-        for (let movie of data.results) {
-            if (nbMovie < 7) {
-                nbMovie++
-                display(index, nbMovie, movie)
-            } else {
-                break
-            }
-        }
-        if (data.next != null && nbMovie < 7) {
-            test(data.next, index)
-        }
+// We create the 4 carousel
+document.addEventListener("DOMContentLoaded", function() {
+    console.log(urls[0])
+    new Carousel(document.querySelector("#best_movies"), urls[0], '0')
+    console.log(urls[1])
+    new Carousel(document.querySelector("#cat1"), urls[1], '1')
+    console.log(urls[2])
+    new Carousel(document.querySelector("#cat2"), urls[2], '2')
+    console.log(urls[3])
+    new Carousel(document.querySelector("#cat3"), urls[3], '3')
+})
 
-    });
-}
+
 // Function to add the movie info on the page html
 function display(index, nbMovie, movie) {
     id_element = `#item${index + String(nbMovie)}`

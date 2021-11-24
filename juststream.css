@@ -1,67 +1,72 @@
+html {
+    background-color: black;
+}
 
-header
-{
+header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     background-color: grey;
 }
-h1
-{
+
+h1 {
     margin-left: 100px;
     color: white;
 }
-nav
-{
+
+nav {
     margin-right: 100px;
     color: white;
     font-size: 1.5em
 }
-nav ul
-{
+
+nav ul {
     list-style-type: none;
     display: flex;
 }
 
-nav li
-{
+nav li {
     margin-right: 50px;
 }
-h3
-{
-    color : blue;
-    text-align : center;
+
+h3 {
+    color: white;
+    text-align: center;
 }
 
-.item
-{
+.item {
     background-color: #adb9b033;
     text-align: center;
     padding: 2em;
 }
-.item:hover{
+
+.item:hover {
     transform: scale(1.2);
 }
-.categories{
-    position:relative;
+
+.categories {
+    position: relative;
     overflow: hidden;
 }
-.carousel{
+
+.carousel {
     transition: transform 0.3s;
-    transform: translate3d(0,0,0);
-}
-.carousel::after{
-    content:'';
-    clear:both;
-    display:table;
+    transform: translate3d(0, 0, 0);
 }
 
-.carousel_item{
-    float:left;
+.carousel::after {
+    content: '';
+    clear: both;
+    display: table;
 }
 
-.next, .prev{
-    position:absolute;
+.carousel_item {
+    float: left;
+}
+
+.next,
+.prev {
+    position: absolute;
     width: 30px;
     height: 30px;
     right: 0px;
@@ -70,9 +75,10 @@ h3
     background-image: url(right.jpg);
     background-size: contain;
     background-position: center;
-    top:50%;
+    top: 50%;
 }
-.prev{
+
+.prev {
     right: auto;
     left: 0px;
     background-image: url(left.jpg);
