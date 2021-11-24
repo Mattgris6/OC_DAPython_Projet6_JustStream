@@ -6,7 +6,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    background-color: grey;
+    background-color: #adb9b033;
 }
 
 h1 {
@@ -29,13 +29,18 @@ nav li {
     margin-right: 50px;
 }
 
+h2 {
+    color: white;
+    text-align: left;
+    margin-left: 0.5em;
+}
+
 h3 {
     color: white;
     text-align: center;
 }
 
 .item {
-    background-color: #adb9b033;
     text-align: center;
     padding: 2em;
 }
@@ -47,6 +52,9 @@ h3 {
 .categories {
     position: relative;
     overflow: hidden;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #7c7c7c33;
 }
 
 .carousel {
@@ -82,4 +90,39 @@ h3 {
     right: auto;
     left: 0px;
     background-image: url(left.jpg);
+}
+
+#best_one {
+    position: relative;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1em;
+    width: 70%;
+    background-color: #7c7c7c33;
+}
+
+p {
+    color: white;
+    margin-left: 1em;
+}
+
+#first_info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+}
+
+.btn_play {
+    background-color: red;
+    border-radius: 50%;
+    width: 100px;
+    height: 40px;
+    margin-left: 1em;
+    color: white;
+    cursor: pointer;
+}
+
+span {
+    color: rgb(90, 90, 90);
 }
