@@ -102,12 +102,16 @@ h3 {
     background-color: #7c7c7c33;
 }
 
-p {
+#best_one:hover {
+    transform: scale(1.05);
+}
+
+#best_one p {
     color: white;
     margin-left: 1em;
 }
 
-#first_info {
+.movie_info {
     display: flex;
     flex-direction: column;
     margin-left: 1em;
@@ -123,6 +127,60 @@ p {
     cursor: pointer;
 }
 
-span {
+.movie_info span {
     color: rgb(90, 90, 90);
+}
+
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* Modal Content */
+
+.modal_content {
+    background-color: #adadad;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #2b2b2b;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.modal_content img {
+    float: left;
+}
+
+.movie_info p {
+    margin: 0;
 }

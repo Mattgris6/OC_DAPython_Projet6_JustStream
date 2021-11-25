@@ -17,7 +17,7 @@ class FirstMovie {
                 var img = document.createElement('img')
                 img.src = this.movie.image_url;
                 this.element.appendChild(img)
-                var info_div = document.createElement("div")
+                var info_div = createDivWithClass("movie_info")
                 info_div.setAttribute('id', 'first_info')
                 this.element.appendChild(info_div)
                 var title_item = document.createElement("h2")
@@ -30,7 +30,9 @@ class FirstMovie {
                 var description = document.createElement('p')
                 description.innerHTML = '<span><b>Description :</b></span> ' + this.movie.description
                 info_div.appendChild(description)
-
+                this.element.onclick = () => {
+                    createModal(this.movie)
+                }
             }))
         }))
     }
@@ -93,7 +95,7 @@ class Carousel {
         this.currentItem = numItem
     }
     async getAllGenre(url) {
-        fetch(url).then((response) => response.json().then((data) => {
+        fetch(url).then((response) => response.json().then(async(data) => {
             for (let movie of data.results) {
                 if (this.notFirstItem && this.numMovie == 0) {
                     this.notFirstItem = false
@@ -101,6 +103,13 @@ class Carousel {
                     if (this.numMovie < this.nbMovies) {
                         this.numMovie = this.numMovie + 1
                         display(this.index, this.numMovie, movie)
+                        await fetch(movie.url).then((resp) => resp.json().then((data_movie) => {
+                            var id_element = `#item${this.index + String(this.numMovie)}`
+                            var movie_element = document.querySelector(id_element)
+                            movie_element.onclick = () => {
+                                createModal(data_movie)
+                            }
+                        }))
                     } else {
                         break
                     }
@@ -150,4 +159,60 @@ function createDivWithClass(className) {
     let div = document.createElement('div')
     div.setAttribute('class', className)
     return div
+}
+
+// Create modal with movie info
+function createModal(movie) {
+    // Get all modal element we need
+    var modal = document.getElementById("movieModal");
+    var close_btn = document.getElementsByClassName("close")[0];
+    var modal_info = document.getElementsByClassName("modal_info")[0];
+    // Clear the modal info
+    modal_info.innerHTML = '';
+    // Param the close button
+    close_btn.onclick = function() {
+        modal.style.display = "none";
+    };
+    // Add movie image
+    var img = document.createElement('img')
+    img.src = movie.image_url;
+    modal_info.appendChild(img);
+    // Add movie info
+    var info_div = createDivWithClass("movie_info")
+    title = document.createElement("h2")
+    title.innerHTML = movie.title
+    info_div.appendChild(title)
+    genre_movie = document.createElement("p")
+    genre_movie.innerHTML = "<span><b>Genres : </b></span>" + movie.genres
+    info_div.appendChild(genre_movie)
+    date_movie = document.createElement("p")
+    date_movie.innerHTML = "<span><b>Date : </b></span>" + movie.date_published
+    info_div.appendChild(date_movie);
+    rated_movie = document.createElement("p")
+    rated_movie.innerHTML = "<span><b>Rated : </b></span>" + movie.rated
+    info_div.appendChild(rated_movie);
+    score_movie = document.createElement("p")
+    score_movie.innerHTML = "<span><b>Score : </b></span>" + movie.imdb_score
+    info_div.appendChild(score_movie);
+    real_movie = document.createElement("p")
+    real_movie.innerHTML = "<span><b>Realisateur : </b></span>" + movie.directors
+    info_div.appendChild(real_movie);
+    actors_movie = document.createElement("p")
+    actors_movie.innerHTML = "<span><b>Acteurs : </b></span>" + movie.actors
+    info_div.appendChild(actors_movie);
+    duration_movie = document.createElement("p")
+    duration_movie.innerHTML = "<span><b>Durée : </b></span>" + movie.duration + "min"
+    info_div.appendChild(duration_movie);
+    countries_movie = document.createElement("p")
+    countries_movie.innerHTML = "<span><b>Pays : </b></span>" + movie.countries
+    info_div.appendChild(countries_movie);
+    boxOffice_movie = document.createElement("p")
+    boxOffice_movie.innerHTML = "<span><b>Entrées au Box Office : </b></span>" + movie.worldwide_gross_income
+    info_div.appendChild(boxOffice_movie);
+    description_movie = document.createElement("p")
+    description_movie.innerHTML = "<span><b>Résumé : </b></span>" + movie.long_description
+    info_div.appendChild(description_movie);
+    modal_info.appendChild(info_div);
+    // Display the modal
+    modal.style.display = "block";
 }
