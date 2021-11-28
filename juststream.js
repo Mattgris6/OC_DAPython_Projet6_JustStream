@@ -44,10 +44,10 @@ class Carousel {
         this.element = element
         this.url = url_carousel
         this.index = id
+        this.nbMovies = 7
         this.nbItemsVisible = 4
         this.nbItemsScroll = 4
         this.currentItem = 0
-        this.nbMovies = 7
         this.numMovie = 0
         if (id == '0') {
             this.notFirstItem = true
