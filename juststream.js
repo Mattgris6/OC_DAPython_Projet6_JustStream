@@ -54,16 +54,18 @@ class Carousel {
         } else {
             this.notFirstItem = false
         }
-
-        let children = [].slice.call(element.children)
         this.container = createDivWithClass('carousel')
         this.element.appendChild(this.container)
-        this.items = children.map((child) => {
-            let item = createDivWithClass("carousel_item")
-            item.appendChild(child)
-            this.container.appendChild(item)
-            return item
-        });
+        this.items = []
+        for (let i = 1; i <= this.nbMovies; i++) {
+            let carousel_item = createDivWithClass("carousel_item")
+            var item_id = `item${this.index}${String(i)}`
+            var item = createDivWithClass("item")
+            item.setAttribute("id", item_id)
+            carousel_item.appendChild(item)
+            this.container.appendChild(carousel_item)
+            this.items.push(carousel_item)
+        }
         let ratio = this.items.length / this.nbItemsVisible
         this.container.style.width = (ratio * 100) + "%"
         this.items.forEach(item => item.style.width = ((100 / this.nbItemsVisible) / ratio) + "%")
