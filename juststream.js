@@ -148,12 +148,9 @@ document.addEventListener("DOMContentLoaded", function() {
 function display(index, nbMovie, movie) {
     id_element = `#item${index + String(nbMovie)}`
     element = document.querySelector(id_element)
-        // div_title = createDivWithClass("movie_title")
-        // div_title.innerHTML = movie.title
     var img = document.createElement('img')
     img.src = movie.image_url;
     element.appendChild(img)
-        // element.appendChild(div_title)
 }
 
 // Create a new div
